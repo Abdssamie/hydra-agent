@@ -5,7 +5,37 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e94b8faa-c2fc-4305-bbd9-8113e8968670" name="Changes" comment="Created agent prototype and set token auth">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/HydraAgent.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/7643e94e-84a1-4c2d-b108-b64d86b377b8.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/7643e94e-84a1-4c2d-b108-b64d86b377b8/storage_v2/_src_/database/hydradb.4O64UQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/7643e94e-84a1-4c2d-b108-b64d86b377b8/storage_v2/_src_/database/hydradb.4O64UQ/schema/public.abK9xQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/ab3cb448-36e2-45fc-8aae-1ac89b5473cc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/ab3cb448-36e2-45fc-8aae-1ac89b5473cc/storage_v2/_src_/database/defaultdb.f1Z3pg.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/ab3cb448-36e2-45fc-8aae-1ac89b5473cc/storage_v2/_src_/database/defaultdb.f1Z3pg/schema/public.abK9xQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/agent/db_store.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/agent/main.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/agent/prompts.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api/dependencies.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api/endpoints/auth.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api/endpoints/chat.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api/endpoints/database.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api/main.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api/models/auth.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api/models/chat.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api/utils/security.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logging_config.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test_main.http" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,7 +118,7 @@
       <workItem from="1739622225758" duration="11429000" />
       <workItem from="1739664424719" duration="847000" />
       <workItem from="1739692143710" duration="10327000" />
-      <workItem from="1739716563047" duration="12173000" />
+      <workItem from="1739716563047" duration="12473000" />
     </task>
     <task id="LOCAL-00001" summary="Created agent prototype and set token auth">
       <option name="closed" value="true" />
