@@ -1,10 +1,12 @@
 from llama_index.vector_stores.mongodb import MongoDBAtlasVectorSearch
 from llama_index.core import VectorStoreIndex
+from llama_index.embeddings.google import GooglePaLMEmbedding
 import pymongo
 from config import MONGODB_URL
 from agent.llm import llm
 import logging
 from logging_config import setup_logging
+from config import GOOGLE_API_KEY
 import ssl
 
 setup_logging()
@@ -14,7 +16,7 @@ logging.getLogger(__name__)
 def get_mongo_client(mongo_uri):
     """Establish connection to the MongoDB."""
     try:
-        client = pymongo.MongoClient(mongo_uri, tlsInsecure=True)
+        client = pymongo.MongoClient(mongo_uri)
         logging.info("Connection to MongoDB successful")
         return client
     except pymongo.errors.ConfigurationError as e:
@@ -41,7 +43,7 @@ vector_store = MongoDBAtlasVectorSearch(
     collection_name=COLLECTION_NAME,
     vector_index_name="vector_index"
 )
-logging.debug("Finished initializing vector store from MongoDBAtlas")
+logging.debug("Finished initializing vector store from MongoDB Atlas")
 
 logging.debug("Creating an index from MongoDB vector store")
 index = VectorStoreIndex.from_vector_store(vector_store)
