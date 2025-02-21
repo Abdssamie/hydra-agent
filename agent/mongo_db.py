@@ -5,6 +5,7 @@ from config import MONGODB_URL
 from agent.llm import llm
 import logging
 from logging_config import setup_logging
+import ssl
 
 setup_logging()
 logging.getLogger(__name__)
@@ -13,7 +14,7 @@ logging.getLogger(__name__)
 def get_mongo_client(mongo_uri):
     """Establish connection to the MongoDB."""
     try:
-        client = pymongo.MongoClient(mongo_uri,)
+        client = pymongo.MongoClient(mongo_uri, ssl_cert_reqs=ssl.CERT_NONE)
         logging.info("Connection to MongoDB successful")
         return client
     except pymongo.errors.ConfigurationError as e:
