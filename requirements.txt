@@ -4,3 +4,10 @@ psycopg2~=2.9.10
 pydantic~=2.10.6
 passlib~=1.7.4
 PyJWT~=2.10.1
+pymongo~=4.11.1
+llama-index-llms-gemini
+python-multipart~=0.0.20
+pillow~=10.4.0
+google~=3.0.0
+llama-index-tools-wikipedia
+python-dotenv

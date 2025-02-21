@@ -1,31 +1,26 @@
 from dotenv import load_dotenv
 from llama_index.core.agent import ReActAgent
-from llama_index.llms.gemini import Gemini
+from agent.tools.tools import add_numbers_tool, load_data, search_data, query_tool
 from llama_index.core.memory import ChatMemoryBuffer
-# from llama_index.core.base.llms.types import ChatMessage, MessageRole
-# from prompts import DEFAULT_SYSTEM_PROMPT
-from llama_index.core.tools import FunctionTool  # , ToolMetadata
+from agent.llm import llm
 import logging
-from db_store import PostgresChatStore
+from logging_config import setup_logging
+from agent.db_store import PostgresChatStore
 from config import DATABASE_URL
-# import asyncio
+import sys
+import io
+
+
+# Ensure UTF-8 encoding for stdout and stderr
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
+sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8")
 
 
 load_dotenv()
 
+setup_logging()
 logger = logging.getLogger(__name__)
 
-
-def add(a: float, b: float) -> float:
-    """Adds two numbers a and b"""
-    return a + b
-
-
-add_numbers_tool = FunctionTool.from_defaults(
-    fn=add,
-)
-
-llm = Gemini(model="models/gemini-2.0-flash")
 
 chat_store = PostgresChatStore(DATABASE_URL)
 
@@ -35,18 +30,12 @@ memory = ChatMemoryBuffer.from_defaults(
     llm=llm,
     token_limit=3000,
     chat_store=chat_store,
-    chat_store_key=chat_store_key
+    # chat_store_key=chat_store_key
 )
-
-# memory.reset()
-# memory.put(
-#     ChatMessage(role=MessageRole.SYSTEM, content=DEFAULT_SYSTEM_PROMPT)
-# )
-
 
 agent = ReActAgent(
     llm=llm,
-    tools=[add_numbers_tool],
+    tools=[add_numbers_tool, load_data, search_data, query_tool],
     verbose=True,
     memory=memory,
     max_iterations=12,
@@ -54,7 +43,7 @@ agent = ReActAgent(
 
 
 def main():
-    response = agent.chat("VERY NICE! Can you name the operations you just did in the last two messages?")
+    response = agent.chat("Hi again, can you search wikipedia for a concept of your choosing?")
     print(response)
 
 

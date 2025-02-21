@@ -5,12 +5,17 @@ from llama_index.core.storage.chat_store import BaseChatStore, SimpleChatStore
 from llama_index.core.llms import ChatMessage
 from pydantic import ConfigDict, PrivateAttr
 import psycopg2
+import logging
+from logging_config import setup_logging
+
+setup_logging()
+logging.getLogger(__name__)
 
 
 class PostgresChatStore(BaseChatStore, ABC):
     model_config = ConfigDict(arbitrary_types_allowed=True)  # ✅ Allow non-Pydantic attributes
 
-    _db_url: str = PrivateAttr()  # ✅ This prevents Pydantic from validating `db_url`
+    _db_url: str = PrivateAttr()
     _conn: psycopg2.extensions.connection = PrivateAttr()
     _cursor: psycopg2.extensions.cursor = PrivateAttr()
 
@@ -19,7 +24,7 @@ class PostgresChatStore(BaseChatStore, ABC):
         self._db_url = db_url
         self._conn = psycopg2.connect(self._db_url)
         self._cursor = self._conn.cursor()
-        self._setup_table()
+        # self._setup_table()  # Now it just take takes time to execute this we know that the table exist already
 
     @classmethod
     def class_name(cls) -> str:

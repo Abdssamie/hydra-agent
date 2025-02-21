@@ -30,6 +30,7 @@ LOG_CONFIG = {
             "level": "DEBUG",
             "filename": os.path.join(LOG_DIR, "app.log"),
             "mode": "a",
+            "encoding": "utf-8"
         }
     },
     "root": {
@@ -49,6 +50,7 @@ LOG_CONFIG = {
         }
     }
 }
+
 
 def setup_logging():
     logging.config.dictConfig(LOG_CONFIG)

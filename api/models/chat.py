@@ -9,6 +9,6 @@ class ChatResponse(BaseModel):
     message: str
 
 
-class ChatResponseV2(BaseModel):
+class ChatResponseWithSessionID(BaseModel):
     message: str
     session_id: str
