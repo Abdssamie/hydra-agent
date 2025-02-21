@@ -11,3 +11,4 @@ pillow~=10.4.0
 google~=3.0.0
 llama-index-tools-wikipedia
 python-dotenv
+uvicorn
