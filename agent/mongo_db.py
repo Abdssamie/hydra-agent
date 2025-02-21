@@ -1,6 +1,5 @@
 from llama_index.vector_stores.mongodb import MongoDBAtlasVectorSearch
 from llama_index.core import VectorStoreIndex
-from llama_index.embeddings.google import GooglePaLMEmbedding
 import pymongo
 from config import MONGODB_URL
 from agent.llm import llm
