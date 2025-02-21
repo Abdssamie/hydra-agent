@@ -14,7 +14,7 @@ logging.getLogger(__name__)
 def get_mongo_client(mongo_uri):
     """Establish connection to the MongoDB."""
     try:
-        client = pymongo.MongoClient(mongo_uri, tlsAllowInvalidCertificates=True)
+        client = pymongo.MongoClient(mongo_uri, tlsInsecure=True)
         logging.info("Connection to MongoDB successful")
         return client
     except pymongo.errors.ConfigurationError as e:
@@ -39,7 +39,7 @@ logging.debug("Initializing vector store from MongoDBAtlas")
 vector_store = MongoDBAtlasVectorSearch(
     mongo_client,
     collection_name=COLLECTION_NAME,
-    vector_index_name="vector_index"  # Ensure this matches your MongoDB index name
+    vector_index_name="vector_index"
 )
 logging.debug("Finished initializing vector store from MongoDBAtlas")
 
