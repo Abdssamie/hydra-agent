@@ -14,7 +14,7 @@ logging.getLogger(__name__)
 def get_mongo_client(mongo_uri):
     """Establish connection to the MongoDB."""
     try:
-        client = pymongo.MongoClient(mongo_uri, ssl_cert_reqs=ssl.CERT_NONE)
+        client = pymongo.MongoClient(mongo_uri, tlsAllowInvalidCertificates=True)
         logging.info("Connection to MongoDB successful")
         return client
     except pymongo.errors.ConfigurationError as e:
