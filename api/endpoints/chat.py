@@ -31,14 +31,14 @@ agent = ReActAgent(
 @router.post("/chat", )
 async def chat_endpoint(message: Annotated[str, Form()], file: UploadFile | None = File(None),
                         session_key: Annotated[str | None, Header()] = None):
-    """Currently max of 1 file can be sent at a time. """
+    """Currently max of 1 file can be sent at a time."""
 
     send_session_key = False
     if not session_key:
         logger.info("Session-ID was not provided in headers")
         session_key = str(uuid4())
         memory.chat_store_key = session_key
-        memory.put(
+        await memory.aput(
             ChatMessage(role=MessageRole.SYSTEM, content=DEFAULT_SYSTEM_PROMPT)
         )
         send_session_key = True
