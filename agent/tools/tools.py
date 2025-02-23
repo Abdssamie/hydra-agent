@@ -1,7 +1,6 @@
 from llama_index.core.tools import FunctionTool, QueryEngineTool
 from llama_index.tools.wikipedia import WikipediaToolSpec
 from agent.mongo_db import query_engine
-from agent.multimodal import gen_img
 
 
 # Test function tool

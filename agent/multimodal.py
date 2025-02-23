@@ -1,11 +1,12 @@
 import logging
-
-from google.genai import types, Client
 from PIL import Image
 # from io import BytesIO
 from fastapi import HTTPException
+from google.genai import Client
 # from fastapi.responses import FileResponse
 from logging_config import setup_logging
+from config import HF_AUTH_TOKEN
+from huggingface_hub import InferenceClient
 
 # import os
 setup_logging()
@@ -19,6 +20,7 @@ def process_image(client: Client(), file, user_message: str):
     Args:
         client: Initialized Gemini client.
         file:  Image file-like object (e.g., UploadFile from FastAPI).
+        user_message: User query message
 
     Returns:
         str: Textual description of the image content.
@@ -57,43 +59,32 @@ def process_image(client: Client(), file, user_message: str):
         raise HTTPException(status_code=500, detail=f"Error processing image with Gemini API: {e}")
 
 
-async def gen_img(client: Client(), query: str):
+async def gen_img(prompt: str):
     """
     Generates an image based on a text query using Imagen and returns it as a FileResponse.
 
     Args:
-        client: Initialized Gemini client.
-        query: Text prompt for image generation.
+        :param prompt: Text prompt for image generation.
 
     Returns:
-        FilePath: Image file path containing the generated image.
+        :return FilePath: Image file path containing the generated image.
 
     Raises:
         HTTPException: If there's an error generating the image or creating the FileResponse.
     """
     try:
-        response = client.models.generate_images(
-            model='imagen-3.0-generate-002',
-            prompt=query,
-            config=types.GenerateImageConfig(
-                number_of_images=1,
-            ),
-            aspect_ratio="1.1"
+        client = InferenceClient(
+            provider="hf-inference",
+            api_key=HF_AUTH_TOKEN
         )
-        if not response.generated_images:  # Check if images were generated
-            raise HTTPException(status_code=500, detail="Imagen API failed to generate image(s).")
 
-        generated_image = response.generated_images[0]  # Assuming number_of_images=1
-        image_path = 'generated_images/ai_generated_image.png'
-        generated_image.save(location=image_path)
-
-        # # Determine image format and MIME type (default to PNG if format is unknown)
-        # image_format = image.format or "PNG"
-        # mime_type = Image.MIME[image_format] if image_format in Image.MIME else "image/png"
-        #
-        # # Save image to a temporary file (required for FileResponse)
-        # temp_image_file = f"temp_image_{os.urandom(8).hex()}.{image_format.lower()}" # Create a unique filename
-        # image.save(temp_image_file)
+        # output is a PIL.Image object
+        image = client.text_to_image(
+            prompt,
+            model="black-forest-labs/FLUX.1-dev"
+        )
+        image_path = "agent/generated_images/image.png"
+        image.save(image_path)
 
         return image_path
 
