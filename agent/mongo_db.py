@@ -1,6 +1,6 @@
 from llama_index.vector_stores.mongodb import MongoDBAtlasVectorSearch
 from llama_index.core import VectorStoreIndex
-from llama_index.embeddings.google import GooglePaLMEmbedding, GeminiEmbedding
+# from llama_index.embeddings.google import GooglePaLMEmbedding, GeminiEmbedding
 import pymongo
 from config import MONGODB_URL
 from agent.llm import llm
@@ -46,10 +46,10 @@ vector_store = MongoDBAtlasVectorSearch(
 logging.debug("Finished initializing vector store from MongoDB Atlas")
 
 logging.debug("Creating an index from MongoDB vector store")
-index = VectorStoreIndex.from_vector_store(vector_store,
-                                           embed_model=GeminiEmbedding(
-                                               model="models/embedding-001",
-                                               api_key=GOOGLE_API_KEY))
+index = VectorStoreIndex.from_vector_store(vector_store, )
+# embed_model=GeminiEmbedding(
+#     model="models/embedding-001",
+#     api_key=GOOGLE_API_KEY))
 logging.debug("Done creating an index")
 
 logging.debug("Using index as a query engine")

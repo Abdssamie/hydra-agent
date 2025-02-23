@@ -5,7 +5,6 @@ from fastapi import HTTPException
 from google.genai import Client
 # from fastapi.responses import FileResponse
 from logging_config import setup_logging
-from config import HF_AUTH_TOKEN
 from huggingface_hub import InferenceClient
 
 # import os
@@ -59,11 +58,12 @@ def process_image(client: Client(), file, user_message: str):
         raise HTTPException(status_code=500, detail=f"Error processing image with Gemini API: {e}")
 
 
-async def gen_img(prompt: str):
+async def gen_img(client: InferenceClient, prompt: str):
     """
     Generates an image based on a text query using Imagen and returns it as a FileResponse.
 
     Args:
+        :param client : InferenceClient object.
         :param prompt: Text prompt for image generation.
 
     Returns:
@@ -73,11 +73,6 @@ async def gen_img(prompt: str):
         HTTPException: If there's an error generating the image or creating the FileResponse.
     """
     try:
-        client = InferenceClient(
-            provider="hf-inference",
-            api_key=HF_AUTH_TOKEN
-        )
-
         # output is a PIL.Image object
         image = client.text_to_image(
             prompt,

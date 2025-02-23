@@ -10,7 +10,7 @@ from typing import Annotated, List
 from llama_index.core.base.llms.types import ChatMessage, MessageRole
 from uuid import uuid4
 from logging_config import setup_logging
-from agent.clients import client
+from agent.clients import genai_client, hf_client
 
 setup_logging()
 logger = logging.getLogger(__name__)
@@ -62,7 +62,7 @@ async def chat_endpoint(message: Annotated[str, Form()], file: UploadFile | None
     if file:
         # img_bytes = await file.read()
         # content_type = file.content_type
-        image_prompt = process_image(client, file, message)
+        image_prompt = process_image(genai_client, file, message)
         message = f"User Message: {message}\n\nImage Processing Results:\n{image_prompt}"
     else:
         message = f"User Message: {message}"  # Cleaner message for no image case
@@ -117,5 +117,5 @@ async def delete_chat_history(session_key: str):
 @router.get("/generate_image/")
 async def generate_image(query: str):
     """Can generate an image but outside the context of Hydra agent"""
-    file_path = await gen_img(query)
+    file_path = await gen_img(hf_client, query)
     return FileResponse(file_path)
