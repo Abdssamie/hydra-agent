@@ -1,6 +1,6 @@
 from dotenv import load_dotenv
 from llama_index.core.agent import ReActAgent
-from agent.tools.tools import add_numbers_tool, load_data, search_data, query_tool
+from agent.tools.tools import query_tool
 from llama_index.core.memory import ChatMemoryBuffer
 from agent.llm import llm
 import logging
@@ -35,7 +35,7 @@ memory = ChatMemoryBuffer.from_defaults(
 
 agent = ReActAgent(
     llm=llm,
-    tools=[add_numbers_tool, load_data, search_data, query_tool],
+    tools=[query_tool],
     verbose=True,
     memory=memory,
     max_iterations=12,

@@ -5,6 +5,6 @@ from config import HF_AUTH_TOKEN
 
 genai_client = genai.Client(api_key=GOOGLE_API_KEY)
 hf_client = InferenceClient(
-            provider="hf-inference",
+            provider="fal-ai",
             api_key=HF_AUTH_TOKEN
         )
